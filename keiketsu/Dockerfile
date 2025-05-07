@@ -18,7 +18,7 @@ COPY . /app
 # コンテナ内でアプリケーションをコンパイルし、WAR ファイルを作成します (手動コンパイルの場合)
 RUN javac /app/src/main/java/**/*.java -d /app/build/classes
 RUN mkdir -p /app/build/ROOT
-COPY webapp /app/build/ROOT
+COPY /app/webapp /build/ROOT
 RUN jar -cvf ROOT.war -C /app/build/ROOT .
 
 # WAR ファイルを Tomcat の webapps ディレクトリにコピーします
