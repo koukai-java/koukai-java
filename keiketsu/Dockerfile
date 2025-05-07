@@ -1,18 +1,21 @@
 # ベースイメージとして Tomcat を使用します
 FROM tomcat:latest
 
-# 作業ディレクトリを設定します
-WORKDIR /usr/local/tomcat/webapps
+# 作業ディレクトリを設定します (一時的なビルド用)
+WORKDIR /app
 
 # アプリケーションのソースコードをコンテナにコピーします
 COPY . /app/
 
 # アプリケーションをビルドし、WAR ファイルを作成します
-RUN cd /app && \
-    javac -d build/classes src/**/*.java && \
-    /usr/local/tomcat/bin/jspc -d build/classes -webapp /app/src/main/webapp /app/src/main/webapp/**/*.jsp && \
+RUN javac -d build/classes keiketsu/src/main/java/**/*.java && \
+    /usr/local/tomcat/bin/jspc -d build/classes -webapp keiketsu/src/main/webapp keiketsu/src/main/webapp/**/*.jsp && \
+    /usr/local/tomcat/bin/jspc -d build/classes -webapp keiketsu/src/main/webapp keiketsu/src/main/webapp/WEB-INF/jsp keiketsu/src/main/webapp/WEB-INF/jsp/**/*.jsp && \
     jar -cvf ROOT.war -C build/classes . && \
-    cp ROOT.war /usr/local/tomcat/webapps/
+    cp ROOT.war /usr/local/tomcat/webapps/ROOT.war
+
+# 作業ディレクトリを Tomcat の webapps に変更 (実行時)
+WORKDIR /usr/local/tomcat/webapps
 
 # ポートを公開します
 EXPOSE 8080
