@@ -5,7 +5,7 @@ FROM tomcat:latest
 WORKDIR /usr/local/tomcat/webapps
 
 # アプリケーションのソースコードをコンテナにコピーします
-COPY app/ /app/
+COPY . /app/
 
 # アプリケーションをビルドし、WAR ファイルを作成します
 RUN cd /app && \
