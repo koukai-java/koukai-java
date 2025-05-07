@@ -5,12 +5,12 @@ FROM tomcat:latest
 WORKDIR /app
 
 # アプリケーションのソースコードをコンテナにコピーします
-COPY . /app/
+COPY keiketsu /app/
 
 # アプリケーションをビルドし、WAR ファイルを作成します
-RUN javac -d build/classes /app/keiketsu/src/main/java/**/*.java && \
-    /usr/local/tomcat/bin/jspc -d build/classes -webapp /app/keiketsu/src/main/webapp /app/keiketsu/src/main/webapp/**/*.jsp && \
-    /usr/local/tomcat/bin/jspc -d build/classes -webapp /app/keiketsu/src/main/webapp /app/keiketsu/src/main/webapp/WEB-INF/jsp /app/keiketsu/src/main/webapp/WEB-INF/jsp/**/*.jsp && \
+RUN javac -d build/classes /app/src/main/java/**/*.java && \
+    /usr/local/tomcat/bin/jspc -d build/classes -webapp /app/src/main/webapp /app/src/main/webapp/**/*.jsp && \
+    /usr/local/tomcat/bin/jspc -d build/classes -webapp /app/src/main/webapp /app/src/main/webapp/WEB-INF/jsp /app/src/main/webapp/WEB-INF/jsp/**/*.jsp && \
     jar -cvf ROOT.war -C build/classes . && \
     cp ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
