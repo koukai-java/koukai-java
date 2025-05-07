@@ -16,7 +16,8 @@ COPY . /app
 # RUN gradle build
 
 # コンテナ内でアプリケーションをコンパイルし、WAR ファイルを作成します (手動コンパイルの場合)
-RUN javac /app/src/main/java/**/*.java -d /app/build/classes
+RUN javac /app/src/**/**/**/*.java -d /app/build/classes
+RUN /path/to/tomcat/bin/jspc -d /app/build/classes -webapp /app/src/main/webapp /app/src/main/webapp/**/*.jsp
 RUN mkdir -p /app/build/ROOT
 COPY /app/webapp /app/build/ROOT
 RUN jar -cvf ROOT.war -C /app/build/ROOT .
