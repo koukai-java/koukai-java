@@ -22,7 +22,7 @@ COPY /app/src/main/webapp /app/build/ROOT
 RUN jar -cvf ROOT.war -C /app/build/ROOT .
 
 # WAR ファイルを Tomcat の webapps ディレクトリにコピーします
-COPY /app/ROOT.war /usr/local/tomcat/webapps/ROOT.war
+COPY /app/build/ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
 # ポートを公開します
 EXPOSE 8080
