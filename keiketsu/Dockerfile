@@ -7,6 +7,9 @@ WORKDIR /app
 # アプリケーションのソースコードをコンテナにコピーします
 COPY . /app/
 
+# Tomcat の lib ディレクトリに移動してみる (間接的なアクセス確認)
+RUN ls /usr/local/tomcat/lib
+
 # Tomcat の lib ディレクトリから Servlet API の JAR ファイルをコピーします
 COPY /usr/local/tomcat/lib/servlet-api-*.jar /app/servlet-api.jar
 
