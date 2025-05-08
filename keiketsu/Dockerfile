@@ -5,7 +5,7 @@ FROM tomcat:latest
 WORKDIR /app
 
 # アプリケーションのソースコードをコンテナにコピーします
-COPY keiketsu /app/
+COPY /keiketsu /app/
 
 # アプリケーションをビルドし、WAR ファイルを作成します
 RUN javac -d build/classes /app/src/main/java/**/*.java && \
