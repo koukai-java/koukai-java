@@ -11,7 +11,7 @@ COPY . /app/
 RUN ls /usr/local/tomcat/lib
 
 # Tomcat の lib ディレクトリから Servlet API の JAR ファイルをコピーします
-COPY /usr/local/tomcat/lib/servlet-api-*.jar /app/servlet-api.jar
+COPY /usr/local/tomcat/lib/servlet-api.jar /app/servlet-api.jar
 
 # アプリケーションをビルドし、WAR ファイルを作成します
 RUN javac -classpath /app/servlet-api.jar -d build/classes /app/src/main/java/**/*.java && \
