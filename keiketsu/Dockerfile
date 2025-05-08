@@ -7,8 +7,11 @@ WORKDIR /app
 # アプリケーションのソースコードをコンテナにコピーします
 COPY . /app/
 
+# Tomcat の lib ディレクトリから Servlet API の JAR ファイルをコピーします
+COPY /usr/local/tomcat/lib/servlet-api.jar /app/servlet-api.jar
+
 # アプリケーションをビルドし、WAR ファイルを作成します
-RUN javac -d build/classes /app/src/main/java/**/*.java && \
+RUN javac -classpath /app/servlet-api.jar -d build/classes /app/src/main/java/**/*.java && \
     /usr/local/tomcat/bin/jspc -d build/classes -webapp /app/src/main/webapp /app/src/main/webapp/**/*.jsp && \
     /usr/local/tomcat/bin/jspc -d build/classes -webapp /app/src/main/webapp /app/src/main/webapp/WEB-INF/jsp /app/src/main/webapp/WEB-INF/jsp/**/*.jsp && \
     jar -cvf ROOT.war -C build/classes . && \
